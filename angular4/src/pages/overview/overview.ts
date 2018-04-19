@@ -8,6 +8,8 @@ export class Overview {
 
     private accounts = [];
     private transactions = [];
+    private options = [1, 2, 3];
+    private optionSelected: any;
     private chartData = {
         names: [],
         balances: []
@@ -79,6 +81,10 @@ export class Overview {
         )
     }
 
+    private derpface(event){
+         this.optionSelected = event;
+    }
+
     private dataReady(data){
         this.accounts = data.accounts;
         this.chartData.names = []
@@ -89,11 +95,15 @@ export class Overview {
         }
         this.chart.xAxis[0].categories = this.chartData.names;
         this.chart.series[0].setData(this.chartData.balances);
+        this.options = this.accounts;
     }
 
     private refreshAmountStats(){
         this.transactions = [];
         for(let i = 0; i < this.accounts.length; i++) {
+            if (this.accounts[i].name != this.optionSelected){
+                continue;
+            }
             this.service.fetchTransactionsByDate(this.accounts[i].account_nbr, this.amountStats.year + '-01-01', this.amountStats.year + '-12-31').then(
                 data => {
                     for (let transaction of data['transactions']) {

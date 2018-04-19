@@ -6,6 +6,10 @@
 		<div class="amount-stats">
 			Transactioner for
 			<input placeholder="år" [(ngModel)]="amountStats.year" /> 
+			på konto
+			<select class='select-option' select required [(ngModel)]='optionSelected' (ngModelChange)='derpface($event)'>
+    			<option selected="selected" class='option' *ngFor='let option of options' [value]="option.name">{{option.name}}</option>
+			</select>
 			med beløb over 
 			<input placeholder="beløb" [(ngModel)]="amountStats.min" /> 
 			kr, og under 
