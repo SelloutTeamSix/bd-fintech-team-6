@@ -280,4 +280,11 @@ header a {
 	background-size: contain;
 }
 
+#chatbot .image.self {
+	background:url('./gfx/spam.jpg');
+	background-size: contain;
+}
+
+
+
 /*END: chatbot*/
