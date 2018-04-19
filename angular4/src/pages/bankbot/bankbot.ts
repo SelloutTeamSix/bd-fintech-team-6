@@ -8,7 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 export class Bankbot {
 
     private message: string = "";
-    private annoyanceCounter: number;
+    private annoyanceCounter: number = 1;
+    private lastMessage: string = "";
     private annoyanceBurst: number = 3;
     private messages: Message[] = [];
 
@@ -43,24 +44,32 @@ export class Bankbot {
         let limit = 0.7;
         let intent = null;
         response.forEach(element => {
-            if(element.value < limit){
+            if(element.value > limit){
                 limit = element.value;
                 intent = element.label;
             }
         });
         console.log(response);
         let intentMsg;
+        if (intent == this.lastMessage) {
+            this.annoyanceCounter++;
+            console.log(intent + " igen!! " + this.annoyanceCounter)
+            if(this.annoyanceCounter >= this.annoyanceBurst){
+                return "Hvad vil du mig?!";
+            }
+        } else {
+            console.log("New message " + intent)
+            this.lastMessage = intent;
+            this.annoyanceCounter = 1;
+        }
         switch(intent){
             case "Budgetkonto":
-                this.annoyanceCounter = 0;
                 intentMsg = "Klassificeret: Budgetkonto";
                 break;
             case "Overblik":
-                this.annoyanceCounter = 0;
                 intentMsg = "Klassificeret: Overblik";
                 break;
             case "Hilsen":
-                this.annoyanceCounter++;
                 intentMsg = this.welcomeMessage();
                 break;
             default:
@@ -75,10 +84,7 @@ export class Bankbot {
         responseList.push("Hej med dig, hvad leder du efter?");
         responseList.push("Hej, hvordan kan jeg hjælpe?");
         responseList.push("Øh hejsa du.");
-        responseList.push("Hej, hvad leder du efter?");
-        if(this.annoyanceCounter >= this.annoyanceBurst){
-            return "Hvad vil du mig?!";
-        }
+        responseList.push("Hej, hvad leder du efter?")
         let idx = Math.floor(Math.random() * responseList.length);
         return responseList[idx];
     }

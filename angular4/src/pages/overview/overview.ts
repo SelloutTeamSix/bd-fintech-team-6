@@ -34,7 +34,7 @@ export class Overview {
         },
         yAxis: {
             title: '',
-            reversed: 'false'
+            reversed: false,
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -80,7 +80,9 @@ export class Overview {
 
     private dataReady(data){
         this.accounts = data.accounts;
-        for(let i = 0; i < this.accounts.length - 1; i++){
+        this.chartData.names = []
+        this.chartData.balances = []
+        for(let i = 0; i < this.accounts.length; i++){
             this.chartData.names.push(this.accounts[i].name);
             this.chartData.balances.push(this.accounts[i].balance);
         }
@@ -90,14 +92,16 @@ export class Overview {
 
     private refreshAmountStats(){
         this.transactions = [];
-        this.service.fetchTransactionsByDate(this.accounts[0].account_nbr, this.amountStats.year + '-01-01', this.amountStats.year + '-12-31').then(
-            data => {
-                for (let transaction of data['transactions']) {
-                   if(transaction.trx_ammount < this.amountStats.min){
-                       this.transactions.push(transaction);
-                   }
+        for(let i = 0; i < this.accounts.length; i++) {
+            this.service.fetchTransactionsByDate(this.accounts[i].account_nbr, this.amountStats.year + '-01-01', this.amountStats.year + '-12-31').then(
+                data => {
+                    for (let transaction of data['transactions']) {
+                       if(transaction.trx_ammount > this.amountStats.min){
+                           this.transactions.push(transaction);
+                       }
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
