@@ -16,8 +16,10 @@ import { Transactions } from '../pages/transactions/transactions';
 import { Overview } from '../pages/overview/overview';
 import { Bankbot } from '../pages/bankbot/bankbot';
 import { SecretDirective } from './secret.directive';
+import { Search } from '../pages/search/search';
 
 export const routes: Routes = [
+  { path: 'search', component: Search},
   { path: '', component: Front },
   { path: 'transactions', component: Transactions},
   { path: 'transactions/:id', component: Transactions },
@@ -36,7 +38,8 @@ export function highchartsFactory() {
     Overview,
     Bankbot,
     AppComponent,
-    SecretDirective
+    SecretDirective,
+    Search
   ],
   imports: [
     BrowserModule,
