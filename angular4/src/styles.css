@@ -130,6 +130,14 @@ header a {
 	float: left;
 }
 
+#transactions .transaction .amount.positiv {
+}
+
+#transactions .transaction .amount {
+	width: 150px;
+	text-align: right;
+}
+
 #front .account {
 	float: left;
 	width: 100%;

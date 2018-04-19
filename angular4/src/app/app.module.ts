@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterOutlet } from '@angular/router';
@@ -55,7 +56,8 @@ export function highchartsFactory() {
     {
       provide: HighchartsStatic,
       useFactory: highchartsFactory
-    }
+    },
+    {provide: LOCALE_ID, useValue: 'da-DK' }
   ],
   bootstrap: [AppComponent]
 })

@@ -59,6 +59,9 @@ export class Transactions {
         this.currentPage++;
         this.service.fetchTransactionsByPage(this.selectedAccount.account_nbr, this.currentPage)
         .then(data => {
+            for(let i = 0 ; i < data['transaction'].length; i++) {
+                data['transaction'][i].class = data['transaction'][i].trx_ammount > 0 ? "positiv" : "negativ";
+            }
             this.transactions = this.transactions.concat(data['transactions']);
         });
     }

@@ -9,13 +9,13 @@
 			</li>
 		</ul>
 		<h2>Saldo</h2>
-		<div class="balance">{{ selectedAccount?.balance }} kr</div>
+		<div class="balance">{{ selectedAccount?.balance| currency:'DKK':'symbol':'.2-2':'dk' }}</div>
 		<ul class="transactions">
 			<li *ngFor="let transaction of transactions" class="transaction"> 
 				<div class="date">{{ transaction.trx_time| date: 'dd.MM.yyyy' }}</div>
 				<div class="category">{{ transaction.trx_subcategory }} - {{ transaction.trx_category }} </div>
 				<div class="text">{{ transaction.trx_description }}</div>
-				<div class="amount">{{ transaction.trx_ammount }}</div>
+				<div [ngClass]="{positiv: transaction.trx_ammount > 0}" class="amount">{{ transaction.trx_ammount | currency:'DKK':'symbol':'.2-2':'dk'}}</div>
 			</li>
 		</ul>
 		<button (click)="getMoreTransactions()" class="get-more">Hent flere</button>

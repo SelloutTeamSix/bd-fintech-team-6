@@ -8,7 +8,7 @@
 						[routerLink]="['/transactions', account.account_nbr]">
                         <div class="name">{{ account.name }}</div>
                         <div class="number">{{ account.account_nbr }}</div>
-                        <div class="balance">{{ account.balance }}</div>
+                        <div class="balance">{{ account.balance| currency:'DKK':'symbol':'.2-2':'dk'}}</div>
                     </a>
                 </li>
 			</ul>
