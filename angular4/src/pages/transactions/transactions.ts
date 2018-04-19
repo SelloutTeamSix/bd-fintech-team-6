@@ -63,6 +63,11 @@ export class Transactions {
         });
     }
 
+    toTop(){
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+
     private isAccountSelected(account){
         return account.account_nbr == this.selectedAccount.account_nbr;
     }
