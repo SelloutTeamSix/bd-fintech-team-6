@@ -57,8 +57,9 @@ export class Overview {
     };
 
     private amountStats = {
-        year: 2016, 
-        min: 100
+        year: 2016,
+        min: 100,
+        max: 10000,
     };
 
     constructor(
@@ -96,7 +97,7 @@ export class Overview {
             this.service.fetchTransactionsByDate(this.accounts[i].account_nbr, this.amountStats.year + '-01-01', this.amountStats.year + '-12-31').then(
                 data => {
                     for (let transaction of data['transactions']) {
-                       if(transaction.trx_ammount > this.amountStats.min){
+                       if((!this.amountStats.min || transaction.trx_ammount > this.amountStats.min) && (!this.amountStats.max || transaction.trx_ammount < this.amountStats.max)){
                            this.transactions.push(transaction);
                        }
                     }
