@@ -13,7 +13,7 @@
 					<li *ngFor="let transaction of transactions"> 
 						{{ transaction.trx_time }}
 						{{ transaction.trx_description }}
-						{{ transaction.trx_ammount }}
+						{{ transaction.trx_ammount | currency:'DKK':'symbol':'.2-2':'dk'}}
 					</li>
 				</ul>
 			</div>
